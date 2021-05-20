@@ -3,8 +3,9 @@
 
 class SockError
 {
-    public:
+    protected:
     std::string name;
+    std::string desc;
     SockError()
     {
 
@@ -12,6 +13,20 @@ class SockError
     void setName(std::string n)
     {
         name = n;
+    }
+    void setDesc(std::string n)
+    {
+        desc = n;
+    }
+
+    public:
+    std::string getName()
+    {
+        return name;
+    }
+    std::string getDescription()
+    {
+        return desc;
     }
 };
 
@@ -21,7 +36,7 @@ class SocketError: public SockError
     SocketError()
     {
         setName("SocketError");
-        std::cout << "[ERROR] Failed to create a socket\n";
+        setDesc("[ERROR] Failed to create a socket\n");
     }
 };
 
@@ -31,7 +46,7 @@ class ListenError: public SockError
     ListenError()
     {
         setName("ListenError");
-        std::cout << "[ERROR] Listen() failed; Check your internet configuration\n";
+        setDesc("[ERROR] Listen() failed; Check your internet configuration\n");
     }
 };
 
@@ -41,7 +56,7 @@ class BindError: public SockError
     BindError()
     {
         setName("BindError");
-        std::cout << "[ERROR] Bind() error: Address my already be in use\n";
+        setDesc("[ERROR] Bind(): Address may already be in use\n");
     }
 };
 
@@ -51,7 +66,7 @@ class BindConnError: public SockError
     BindConnError()
     {
         setName("BindConnError");
-        std::cout << "[ERROR] Attempted bind already connected\n";
+        setDesc("[ERROR] Bind(): Cannot bind socket that is already connected\n");
     }
 };
 
@@ -61,7 +76,7 @@ class AcceptError: public SockError
     AcceptError()
     {
         setName("AcceptError");
-        std::cout << "[ERROR] Failed to accept a connection on the socket\n";
+        setDesc("[ERROR] Accept(): Failed to accept a connection on the socket\n");
     }
 };
 
@@ -71,7 +86,7 @@ class ConnectionError: public SockError
     ConnectionError()
     {
         setName("ConnectionError");
-        std::cout << "[ERROR] Failed to connect to remote endpoint\n";
+        setDesc("[ERROR] Connect(): Failed to connect to remote endpoint\n");
     }
 };
 
@@ -81,7 +96,7 @@ class ConnBoundError: public SockError
     ConnBoundError()
     {
         setName("ConnBoundError");
-        std::cout << "[ERROR] Attempted connection already bound\n";
+        setDesc("[ERROR] Connect(): Attempted connection already bound\n");
     }
 };
 
@@ -91,7 +106,7 @@ class SendError: public SockError
     SendError()
     {
         setName("SendError");
-        std::cout << "[ERROR] Failed to send message\n";
+        setDesc("[ERROR] Send(): Failed to send message\n");
     }
 };
 
@@ -101,6 +116,6 @@ class RecvError: public SockError
     RecvError()
     {
         setName("RecvError");
-        std::cout << "[ERROR] Failed to receieve message\n";
+        setDesc("[ERROR] Recv(): Failed to receieve message\n");
     }
 };

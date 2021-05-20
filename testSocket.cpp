@@ -15,16 +15,8 @@ int main(int argc, char** argv)
     }
     catch(SockError& err)
     {
-        std::cerr << "Got an error " << err.name << std::endl;
+        std::cerr << "Got an error " << err.getDescription() << std::endl;
     }
-
-    char bytes[6] = {0x22, 0x34, 0x56, 0x78, 0x79, 0x55};
-
-    displayBytes(bytes, 6);
-    displayBytes(bytes, 6);
-    ReverseByteOrder(bytes, 6);
-    displayBytes(bytes, 6);
-    displayBytes(bytes, 6);
 
     TCPSocket newSock = TCPSocket(AF_INET, SOCK_STREAM);
     return 0;
