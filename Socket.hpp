@@ -38,6 +38,14 @@ class TCPSocket
         close(sock);
         close(conn);
         opened = false;
+        if(bound)
+        {
+            bound = false;
+        }
+        if(connected)
+        {
+            connected = false;
+        }
     }
 
     bool Closed()

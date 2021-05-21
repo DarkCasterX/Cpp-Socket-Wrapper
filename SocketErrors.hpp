@@ -36,7 +36,7 @@ class SocketError: public SockError
     SocketError()
     {
         setName("SocketError");
-        setDesc("[ERROR] Failed to create a socket\n");
+        setDesc("[ERROR] TCPSocket(): Failed to create a socket\n");
     }
 };
 
