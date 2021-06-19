@@ -31,6 +31,8 @@ class TCPSocket
     }
     ~TCPSocket()
     {
+        std::cout << "Destructor called.\n";
+        Close();
     }
 
     void Close()
@@ -46,6 +48,7 @@ class TCPSocket
         {
             connected = false;
         }
+        std::cout << "Closed sockets.\n";
     }
 
     bool Closed()
@@ -143,6 +146,7 @@ class TCPSocket
     }
 };
 
+//Reverses byte order of a string of bytes
 void ReverseByteOrder(char bytes[], int size)
 {
     int end = size - 1;
@@ -155,6 +159,7 @@ void ReverseByteOrder(char bytes[], int size)
     }
 }
 
+//Displays the bytes of a character array in ASCII format
 void displayBytes(char bytes[], int size)
 {
     for(int i = 0; i < size; i++)
