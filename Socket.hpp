@@ -3,11 +3,14 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include "./SocketErrors.hpp"
+#define SERVER 1
+#define CLIENT 2
 
 class TCPSocket
 {
     int sock;
     int conn;
+    int socketMode;
     struct sockaddr_in address;
     struct sockaddr_in remote;
     char* buf;
@@ -50,7 +53,30 @@ class TCPSocket
         }
         std::cout << "Closed sockets.\n";
     }
-
+    
+	void Open(int mode, int AF, int SOCK_TYPE)
+    {
+        if(mode == SERVER)
+        {
+                this->socketMode = SERVER;
+                if((sock = socket(AF, SOCK_TYPE, 0)) < 0)
+                {
+                        throw SocketError();
+                }
+        }
+        else if(mode == CLIENT)
+        {
+            this->socketMode = CLIENT;
+            if((conn = socket(AF, SOCK_TYPE, 0)) < 0)
+            {
+                throw SocketError();
+            }
+        }
+        else
+        {
+            std::cerr << "Invalid mode.\n";
+        }
+    }
     bool Closed()
     {
         if(opened)
