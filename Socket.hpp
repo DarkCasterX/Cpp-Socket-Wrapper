@@ -105,6 +105,7 @@ class TCPSocket
             throw BindConnError();
         }
     }
+   
     void Listen(int n)
     {
         std::cout << "Listening for a connection...\n";
@@ -113,6 +114,18 @@ class TCPSocket
             throw ListenError();
         }
     }
+   
+    void Accept(void (*f)(TCPSocket))
+    {
+        int remoteLen = sizeof(remote);
+        if((conn = accept(sock, (struct sockaddr*)&remote, (socklen_t*)&remoteLen)) < 0)
+        {
+            throw AcceptError();
+        }
+        std::cout << "Accepted a connection from [" << inet_ntoa(remote.sin_addr) << ":" << ntohs(remote.sin_port) << "]\n";
+        f(*this);
+    }
+   
     void Accept()
     {
         int remoteLen = sizeof(remote);
@@ -122,6 +135,7 @@ class TCPSocket
         }
         std::cout << "Accepted a connection from [" << inet_ntoa(remote.sin_addr) << ":" << ntohs(remote.sin_port) << "]\n";
     }
+
     void Connect(std::string ip_add, int port)
     {
         if(!bound)
