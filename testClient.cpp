@@ -11,7 +11,9 @@ int main(int argc, char** argv)
         std::cout << std::atoi(sock.RecvChar(1024));
         sock.Close();
         sock.Open(SERVER, AF_INET, SOCK_STREAM);
-        sock.Bind("127.0.0.1", 5000);
+        sock.Bind("127.0.0.1", 7777);
+        sock.Listen(1);
+        sock.Accept();
     }
     catch(SockError& err)
     {

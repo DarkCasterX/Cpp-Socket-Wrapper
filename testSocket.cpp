@@ -16,6 +16,9 @@ int main(int argc, char** argv)
         sock.Bind("127.0.0.1", 4444);
         sock.Listen(1);
         sock.Accept(sayHello);
+        sock.Close();
+        sock.Open(CLIENT, AF_INET, SOCK_STREAM);
+        sock.Connect("127.0.0.1", 7777);
     }
     catch(SockError& err)
     {

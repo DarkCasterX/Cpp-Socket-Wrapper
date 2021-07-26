@@ -38,6 +38,11 @@ class TCPSocket
         Close();
     }
 
+    int SockMode()
+    {
+        return socketMode;
+    }
+
     void Close()
     {
         close(sock);
@@ -56,25 +61,29 @@ class TCPSocket
     
 	void Open(int mode, int AF, int SOCK_TYPE)
     {
-        if(mode == SERVER)
+        if(opened == false)
         {
+            if(mode == SERVER)
+            {
                 this->socketMode = SERVER;
                 if((sock = socket(AF, SOCK_TYPE, 0)) < 0)
                 {
                         throw SocketError();
                 }
-        }
-        else if(mode == CLIENT)
-        {
-            this->socketMode = CLIENT;
-            if((conn = socket(AF, SOCK_TYPE, 0)) < 0)
-            {
-                throw SocketError();
             }
+            else if(mode == CLIENT)
+            {
+                this->socketMode = CLIENT;
+            }
+            else
+            {
+                std::cerr << "Invalid mode.\n";
+            }
+            opened = true;
         }
         else
         {
-            std::cerr << "Invalid mode.\n";
+            std::cerr << "This socket is already open. Close it to reopen it.\n";
         }
     }
     bool Closed()
