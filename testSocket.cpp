@@ -8,6 +8,11 @@ void sayHello(TCPSocket sock)
     sock.Send("1024\n");
 }
 
+void onConnect(TCPSocket sock)
+{
+    std::cout << "Whatever\n";
+}
+
 int main(int argc, char** argv)
 {
     try
@@ -18,7 +23,7 @@ int main(int argc, char** argv)
         sock.Accept(sayHello);
         sock.Close();
         sock.Open(CLIENT, AF_INET, SOCK_STREAM);
-        sock.Connect("127.0.0.1", 7777);
+        sock.Connect("127.0.0.1", 7777, onConnect);
     }
     catch(SockError& err)
     {

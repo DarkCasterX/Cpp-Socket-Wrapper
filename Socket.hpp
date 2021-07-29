@@ -166,6 +166,30 @@ class TCPSocket
             throw ConnBoundError();
         }   
     }
+
+    void Connect(std::string ip_add, int port, void(*f)(TCPSocket))
+    {
+        if(!bound)
+        {
+            conn = socket(AF_INET, SOCK_STREAM, 0);
+            inet_aton(ip_add.c_str(), (in_addr*)&remote.sin_addr);
+            remote.sin_family = AF_INET;
+            remote.sin_port = htons(port);
+
+            if(connect(conn, (const sockaddr*)&remote, sizeof(remote)) < 0)
+            {
+                throw ConnectionError();
+            }
+            connected = true;
+            std::cout << "Connected to [" << inet_ntoa(remote.sin_addr) << ":" << ntohs(remote.sin_port) << "]\n";
+            f(*this);
+        }
+        else
+        {
+            throw ConnBoundError();
+        }   
+    }
+
     void Send(std::string message)
     {
 
@@ -174,6 +198,7 @@ class TCPSocket
             throw SendError();
         }
     }
+
     std::string Recv(int bytes)
     {
         buf = new char[bytes];
