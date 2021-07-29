@@ -59,7 +59,7 @@ class TCPSocket
         std::cout << "Closed sockets.\n";
     }
     
-	void Open(int mode, int AF, int SOCK_TYPE)
+    void Open(int mode, int AF, int SOCK_TYPE)
     {
         if(opened == false)
         {
