@@ -13,7 +13,7 @@ class TCPSocket
     int socketMode;
     struct sockaddr_in address;
     struct sockaddr_in remote;
-    char* buf;
+    char* buf = nullptr;
     int family;
     int sockType;
     bool bound;
@@ -35,6 +35,7 @@ class TCPSocket
     ~TCPSocket()
     {
         std::cout << "Destructor called.\n";
+        delete buf;
         Close();
     }
 
