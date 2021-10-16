@@ -35,7 +35,6 @@ class TCPSocket
     ~TCPSocket()
     {
         std::cout << "Destructor called.\n";
-        delete buf;
         Close();
     }
 
